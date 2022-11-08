@@ -1,0 +1,110 @@
+<!doctype html>
+<html><head>
+<meta charset="UTF-8">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+	<script> src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"</script>  
+	<script> 
+	let botAnswer = -1;
+	let generateBotQ = () =>{
+		console.log("generateBotQ()")
+		let botQuest = docG("botq");
+		let n1 = Math.floor(math.random() * 21 ) + 2;
+		let n2 = Math.floor(math.random() * 21 ) + 2;
+		botAnswer = n1 + n2 ;
+		console.log("batAnswer" + botAnswer);
+		botQuest.innerHTML = "What is " + n1 + " + " + n2 + " ?";
+	}
+	window.addEventListener("load", generateBotQ);
+		
+	let isValidPword = (str) =>
+	{
+		console.log("isValidPword ("+str+")");
+		if(str.length <5 )
+			{
+			return false;
+			}
+		if(str.indexOf("$") > -1)
+			{
+				return false;
+			}
+		if(str.indexOf("*") > -1) 
+			{
+				return false;
+			}
+		return true;
+		}
+		let loginClicked = (e) => {
+			let bHasError = false;
+			let pWordElem = docG("pword1");
+			let bValidPword = isValidPword(pWordElem.value);
+			console.log("bValidPword : " + isValidPword(pWordElem.value));
+			let errorDiv = docG("errormsg");
+			if(bValidPword === false){
+				errorDiv.className = "d-block bg-danger text-light m-4 p-4 mt-2";
+				errorDiv.innerHTML = "<p>Your Password does meet our criteria</p>";
+				errorDiv.innerHTML += "<ul>";
+				errorDiv.innerHTML += "<li> At least 5 characters</li>";
+				errorDiv.innerHTML += "<li> No dollar sign ($)</li>";
+				errorDiv.innerHTML += "<li> No asterisk (*)	</li>";
+				errorDiv.innerHTML += "</ul>";
+				pWordElem.select();
+				bHasError = true
+				}
+			if( bHasError === false)
+				{
+				errorDiv.className = "d-none" ;
+				}
+	}
+		
+	</script>
+	<style>
+	div.row > div {
+        border-width:1px;
+        border-style:solid;
+        border-color:#cccccc;
+    }
+	</style>
+<title>Untitled Document</title>
+</head>
+
+<body>
+
+<select class="form-control" id="pwordselect">
+	<option value="">Password Testing</option>
+	<option value="pworddollarsign">Dollar Sign in pword</option>
+	<option value="pwordasterisk">Asterisks Sign in pword</option>
+	<option value="pwordtooshort">Too Short</option>
+	<option value="pwordallgood">Password is good</option>
+</select>
+
+<form>
+	<div class="input-group mb-3">
+		<div class="input-group-prepend">
+			<span class="input-group-text">Email</span>
+		</div>
+		<input type="text" name="email1" class="form-control loginform" id="email" placeholder="Email" value="morrisv@harrisoncsd.org">
+	</div>
+	<div class="input-group mb-3">
+		<div class="input-group-prepend">
+			<span class="input-group-text">Password</span>
+		</div>
+		<input name="pword1" class="form-control loginform" type="password" id="pword1" placeholder="Password" value="testing1"/>
+	</div>
+	<div class="input-group mb-3">
+		<div class="input-group-prepend">
+			<span class="input-group-text"><span id="botq">What is 6 + 7</span></span>
+		</div>
+		<input class="form-control loginform" type="number" id="antibotanswer" placeholder="enter solution" value=""/>
+	</div>
+	<div class="ml-5 mt-3"> 
+		<input type="button" value="login" id="loginbttn" class="btn btn-lg btn-primary">
+	</div>
+	</form>
+	<div id="errormsg" class="col-12 m-4 p-4">
+		<div class="d-none">
+			Enter question
+		</div>
+	</div>
+</body>
+</html>
+
