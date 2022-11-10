@@ -7,9 +7,9 @@
 	let botAnswer = -1;
 	let generateBotQ = () =>{
 		console.log("generateBotQ()")
-		let botQuest = docG("botq");
-		let n1 = Math.floor(math.random() * 21 ) + 2;
-		let n2 = Math.floor(math.random() * 21 ) + 2;
+		let botQuest = document.getElementById("botq");
+		let n1 = Math.floor(Math.random() * 21 ) + 2;
+		let n2 = Math.floor(Math.random() * 21 ) + 2;
 		botAnswer = n1 + n2 ;
 		console.log("batAnswer" + botAnswer);
 		botQuest.innerHTML = "What is " + n1 + " + " + n2 + " ?";
@@ -35,10 +35,10 @@
 		}
 		let loginClicked = (e) => {
 			let bHasError = false;
-			let pWordElem = docG("pword1");
+			let pWordElem = document.getElementById("pword1");
 			let bValidPword = isValidPword(pWordElem.value);
 			console.log("bValidPword : " + isValidPword(pWordElem.value));
-			let errorDiv = docG("errormsg");
+			let errorDiv = document.getElementById("errormsg");
 			if(bValidPword === false){
 				errorDiv.className = "d-block bg-danger text-light m-4 p-4 mt-2";
 				errorDiv.innerHTML = "<p>Your Password does meet our criteria</p>";
@@ -56,7 +56,38 @@
 				}
 	}
 		
+		 window.onload = function(){
+            let pWordSelect = document.getElementById("pwordselect");
+			console.log(pWordSelect);
+
+			pWordSelect.addEventListener("change", function(evt){
+			let selected = document.getElementById("pwordselect").value ; 
+			console.log("selected :" + selected) ;
+
+			const CASE_PWORD_TOO_SHORT = "pwordtooshort" ;
+			const CASE_PWORD_HAS_DOLLARSIGN = "pworddollarsign" ; 
+			const CASE_PWORD_HAS_ASTERISK = "pwordasterisk" ; 
+			const CASE_PWORD_ALL_GOOD = "pwordallgood" ;
+
+			let pWordElem = document.getElementById("pword1");
+			if(selected == CASE_PWORD_TOO_SHORT){
+				pWordElem.value = "abc";
+			}
+			if(selected == CASE_PWORD_HAS_DOLLARSIGN){
+				pWordElem.value = "abcadf$";
+			}
+			if(selected == CASE_PWORD_HAS_ASTERISK){
+				pWordElem.value = "abcadf*";
+			}
+			if(selected == CASE_PWORD_ALL_GOOD){
+				pWordElem.value = "abcadf333"
+			}
+			loginClicked() ;
+			});
+        };
+	
 	</script>
+
 	<style>
 	div.row > div {
         border-width:1px;
@@ -64,6 +95,7 @@
         border-color:#cccccc;
     }
 	</style>
+	
 <title>Untitled Document</title>
 </head>
 
